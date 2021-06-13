@@ -34,15 +34,19 @@ public class CategoriaResource {
 	public ResponseEntity<Categoria> criar(@RequestBody Categoria categoria, HttpServletResponse response) {
 		Categoria categoriaSalva = categoriaRepository.save(categoria);
 		
+		// Retorna no HEADER da resposta a URI de como localizar o registro salvo
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{codigo}").buildAndExpand(categoriaSalva.getCodigo()).toUri();
 		response.setHeader("Location", uri.toASCIIString());
 		
+		// Retorna no BODY o registro salvo para já aparecer na tela, evitando ter que consultar para ver o registro salvo
 		return ResponseEntity.created(uri).body(categoriaSalva);
 	}
 	
 	@GetMapping("/{codigo}")
 	public ResponseEntity<Categoria> buscarPeloCodigo(@PathVariable Long codigo) {
 		Categoria categoria = categoriaRepository.findById(codigo).orElse(null);
+		
+		// Retorna 404 caso a busca seja nula
 		return categoria != null ? ResponseEntity.ok(categoria) : ResponseEntity.notFound().build();
 	}
 }
