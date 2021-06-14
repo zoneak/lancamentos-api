@@ -60,8 +60,8 @@ public class Pessoa {
 		this.ativo = ativo;
 	}
 	
-	@JsonIgnore
-	@Transient
+	@JsonIgnore // Jackson vai ignorar e não vai tentar serializar
+	@Transient // hibernate não vai salvar no banco
 	public boolean isInativo() {
 		return !this.ativo;
 	}
