@@ -10,15 +10,19 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import com.ak.lancamentos.api.config.property.LancamentoApiProperty;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsFilter implements Filter {
 
-	private String originPermitida = "http://localhost:8000"; // Configurar para diferentes ambientes
+	@Autowired
+	private LancamentoApiProperty lancamentoApiProperty;
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -30,10 +34,10 @@ public class CorsFilter implements Filter {
 		/* CORS = Adicionar Access-Control-xxx */
 		
 		// Esses 2 precisam enviar em TODAS as requisições (get, post etc)
-		resp.setHeader("Access-Control-Allow-Origin", originPermitida);
+		resp.setHeader("Access-Control-Allow-Origin", lancamentoApiProperty.getOrigemPermitida());
 		resp.setHeader("Access-Control-Allow-Credentials", "true");
 		
-		if ("OPTIONS".equals(req.getMethod()) && originPermitida.equals(req.getHeader("Origin"))) {
+		if ("OPTIONS".equals(req.getMethod()) && lancamentoApiProperty.getOrigemPermitida().equals(req.getHeader("Origin"))) {
 			resp.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT, OPTIONS");
 			resp.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept");
 			resp.setHeader("Access-Control-Max-Age", "3600");
