@@ -1,0 +1,4 @@
+1) Instalar o python
+2) Pelo prompt, ir até esta pasta do projeto \lancamentos-api\src\main\webapp
+3) Executar o comando: python -m http.server 8000
+4) Abrir no browser: http://localhost:8000/teste-get-categorias.html 

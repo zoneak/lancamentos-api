@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +31,8 @@ public class CategoriaResource {
 	@Autowired
 	private ApplicationEventPublisher publisher;
 	
+	// Apenas para testar o CORS - Não utilizado na app devido a conflito com spring security
+	//@CrossOrigin(maxAge = 10, origins = { "http://localhost:8000" })
 	@GetMapping // Requisições GET caem aqui
 	public List<Categoria> listar() {
 		return categoriaRepository.findAll();
