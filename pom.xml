@@ -15,7 +15,10 @@
 	<name>lancamentos-api</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<start-class>com.ak.lancamentos.api.LancamentosApiApplication</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -102,6 +105,17 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+				    <fork>true</fork>
+				    <mainClass>${start-class}</mainClass>
+				</configuration>
+				  <executions>
+				    <execution>
+				      <goals>
+				        <goal>repackage</goal>
+				      </goals>
+				    </execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
